@@ -39,9 +39,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  * 1 (a) configurar RootContextConfig para que soporte
  * ejecución de métodos asíncronos y programados.
  * */
-// Escribe tu código aquí {
 
-// }
+@EnableAsync
+@EnableScheduling
+
 @ComponentScan(
 		basePackageClasses = {
 			   		me.jmll.utm.web.ComponentPackageMaker.class,
@@ -107,6 +108,22 @@ public class RootContextConfig implements AsyncConfigurer, SchedulingConfigurer 
 		 * */
 		ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
 		// Escribe tu código aquí {
+		
+		taskScheduler.setPoolSize(20);
+		taskScheduler.setThreadNamePrefix("job.");
+		taskScheduler.setErrorHandler(new ErrorHandler() {
+			@Override
+			public void handleError(Throwable t) {
+				schedulingLogger.error("Unknown handling job {}", t);
+			}
+		});
+		
+		taskScheduler.setRejectedExecutionHandler(new RejectedExecutionHandler() {
+			@Override
+			public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+				schedulingLogger.error("job rejected {}", r);
+			}
+		});
 		
 		// }
 		return taskScheduler;

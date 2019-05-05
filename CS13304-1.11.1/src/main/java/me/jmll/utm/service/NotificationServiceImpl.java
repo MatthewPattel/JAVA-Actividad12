@@ -40,11 +40,11 @@ public class NotificationServiceImpl implements NotificationService {
 		try {
 			SimpleMailMessage emailMessage = new SimpleMailMessage();
 			// Escribe tu código aquí {
-
+			emailMessage.setTo(String.join(",", toAddress));
 			if (ccAddress.size() > 0 && !ccAddress.get(0).isEmpty())
 				emailMessage.setCc(String.join(",", ccAddress));
-
-
+			emailMessage.setSubject(subject);
+			emailMessage.setText(message);
 			// }
 			mailSender.send(emailMessage);
 		} catch (Exception ex){

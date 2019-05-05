@@ -56,13 +56,17 @@ public class FileServiceImpl implements FileService {
 	 * 3 (b) Contiene la misma lógica para subir archivos que 
 	 *  en UploadController. 
 	 * */
-	@Override
+	
 	public boolean uploadFile(MultipartFile file, String name, String path) {
 		try {
 			// Escribe aquí tu código {
-
+			Path filePath = Paths.get(path);
+			if (!Files.exists(filePath)) {
+				Files.createDirectory(filePath);
+			}
 			
-			
+			BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath.toString())));
+			FileCopyUtils.copy(file.getInputStream(), stream);
             // }
             logger.info("Successfully uploaded {} ", filePath.toString() + File.separator + name);
             return true;

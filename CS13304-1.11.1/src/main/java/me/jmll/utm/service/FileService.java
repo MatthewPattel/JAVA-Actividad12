@@ -12,7 +12,5 @@ public interface FileService {
 	 * 3 (a) Método uploadFile que tiene como parámetros
 	 * MultipartFile file, String name, String path
 	 * */
-	// Escribe tu código aquí {
-	
-	// }
+	public boolean uploadFile(MultipartFile file, String name, String path);
 }

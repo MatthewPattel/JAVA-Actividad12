@@ -12,9 +12,7 @@ import org.springframework.stereotype.Component;
  * 2 (a) Agregar la anotación correcta para que sea
  *  cargada por el contexto raíz.
  * **/
-// Escribe tu código aquí {
-
-// }
+@Component
 public class ScheduledTasks {
 	private static final Logger logger = LogManager.getLogger();
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");

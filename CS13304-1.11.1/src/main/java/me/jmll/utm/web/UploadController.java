@@ -51,7 +51,11 @@ public class UploadController {
 		List<String> errors = new ArrayList<String>();
 		if (!file.isEmpty()) {
 			// Escribe tu código aquí {
-
+			boolean status = fileService.uploadFile(file, name, path);
+			if(status) {
+				String message = String.format("File %s successfully uploaded to %s", name, path);
+				warnings.add(message);
+			}
             // }
         }
         else {
